@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 '''
 
     The MIT License (MIT)
@@ -66,14 +67,13 @@ def ComputeIkFromParams(N,x,a,b):
     I0 = ComputeI0FromParams(x,a,b)
     I = []
     I.append(I0)
-    dx = x[1]-x[0]
     if N == 0:
         return I
     else:
         for k in range(N):
             Ik = []
             for t in range(len(x)):
-                Ik.append(np.trapz(I[-1][:t+1],x[:t+1],dx))
+                Ik.append(np.trapz(I[-1][:t+1],x[:t+1]))
             I.append(Ik)
         return np.array(I)
 
@@ -84,16 +84,19 @@ def ComputeIkFromY(N,x,y):
     I0 = ComputeI0FromY(x,y)
     I = []
     I.append(I0)
-    dx = x[1]-x[0]
     if N == 0:
         return I
     else:
         for k in range(N):
             Ik = []
             for t in range(len(x)):
-                Ik.append(np.trapz(I[-1][:t+1],x[:t+1],dx))
+                Ik.append(np.trapz(I[-1][:t+1],x[:t+1]))
             I.append(Ik)
         return np.array(I)
+
+def Kaufmann2003Evaluate(a,b,x):
+    assert len(a) == len(b)+1
+    return a[0] + np.dot(a[1:],np.exp(-np.outer(b,x)))
 
 def Kaufmann2003Solve(N,x,y):
     '''
@@ -117,12 +120,6 @@ def Kaufmann2003Solve(N,x,y):
     '''
     x = np.array(x)
     y = np.array(y)
-
-    # check for uniform x spacing
-    dx = x[1:] - x[:-1]
-    testdx = dx[0]
-    if any([i != testdx for i in dx]):
-        raise Exception('ERROR: x values must be uniformly spaced')
 
     # compute Ik
     Ik = ComputeIkFromY(N,x,y)
