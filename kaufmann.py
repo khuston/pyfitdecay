@@ -94,16 +94,22 @@ def ComputeIkFromY(N,x,y):
             I.append(Ik)
         return np.array(I)
 
-def Kaufmann2003Evaluate(a,b,x):
+def Kaufmann2003Evaluate(x,params):
+    a,b = params
     assert len(a) == len(b)+1
     return a[0] + np.dot(a[1:],np.exp(-np.outer(b,x)))
+
+def Kaufmann2003DEvaluate(x,params):
+    a,b = params
+    assert len(a) == len(b)+1
+    return np.dot(-a[1:]*b,np.exp(-np.outer(b,x)))
 
 def Kaufmann2003Solve(N,x,y):
     '''
         Kaufmann2003Solve(N,x,y)
 
         param N: number of summed exponentials to fit
-        param x: array of x values (must be uniformly spaced)
+        param x: array of x values
         param y: array of y values
 
         returns a,b
