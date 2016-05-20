@@ -105,14 +105,21 @@ def Kaufmann2003DEvaluate(x,params):
     return np.dot(-a[1:]*b,np.exp(-np.outer(b,x)))
 
 def Kaufmann2003Solve(N,x,y):
-    '''
-        Kaufmann2003Solve(N,x,y)
+    """Fit N-exponential decay to a dataseries (x, y) using algorithm by
+    Kaufmann, cited below.
 
-        param N: number of summed exponentials to fit
-        param x: array of x values
-        param y: array of y values
+    Parameters
+    ----------
+    N : float
+        number of summed exponentials to fit
 
-        returns a,b
+    x : array
+        x values
+
+    y : array
+        y values
+
+        returns a, b
         len(a) = 1 + N
         len(b) = N
 
@@ -123,7 +130,7 @@ def Kaufmann2003Solve(N,x,y):
             arXiv:physics/0305019, May 6, 2003.
             http://arxiv.org/abs/physics/0305019.
 
-    '''
+    """
     x = np.array(x)
     y = np.array(y)
 
