@@ -13,5 +13,5 @@ exponential decays to zero.
 
 ##TODO
 - add error analysis (note: proper error analysis would probably include basin hopping,
-but 
+but that's probably too sophosticated)
 - describe algorithm
