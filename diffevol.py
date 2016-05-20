@@ -1,6 +1,9 @@
 import numpy as np
 from scipy.optimize import differential_evolution
 
+def EvalExpFit(x, a, b):
+    return np.dot(a, np.exp(-np.outer(b, x)))
+
 def ExpFitDiffEvol(N, x, y):
     """Fit N-exponential decay to a dataseries (x, y) using differential
     evolution as implemented in scipy.optimize.
@@ -38,8 +41,7 @@ def ExpFitDiffEvol(N, x, y):
 
     def objective(s):
         taui, fi = np.split(s, 2)
-        x_tiled = np.tile(x, (len(taui), 1)).T
-        return np.sum((y - np.sum(fi*np.exp(-x_tiled/taui), axis=1))**2.)
+        return np.sum((y - np.dot(fi, np.exp(-np.outer(1./taui, x))))**2.)
 
     result = differential_evolution(objective, bounds)
     s = result['x']
