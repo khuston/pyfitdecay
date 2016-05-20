@@ -1,4 +1,3 @@
-Kaufmann2003
 pyfitdecay
 ============
 
