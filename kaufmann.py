@@ -22,7 +22,7 @@
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
-    
+
     =============================================================================
 
     Written by Kyle Huston at 2:39 AM Tuesday, July 8, 2014
@@ -39,7 +39,7 @@ import scipy.optimize as opt
 from scipy.misc import factorial
 
 def Cmax(N):
-    return max([factorial(N)/(factorial(i)*factorial(N-i)) for i in range(N+1)])
+    return int(max([factorial(N)/(factorial(i)*factorial(N-i)) for i in range(N+1)]))
 
 def ComputeAlphaBeta(N,a,b):
     alpha = np.zeros((N+1,Cmax(N)+1))
